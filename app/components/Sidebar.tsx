@@ -6,19 +6,6 @@ import { useChatStore } from "../store/useChatStore";
 export default function Sidebar() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
-  useEffect(() => {
-    queueMicrotask(() => {
-      const stored = localStorage.getItem("chatixs-theme") as
-        | "light"
-        | "dark"
-        | null;
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
-      setTheme(stored ?? (prefersDark ? "dark" : "light"));
-    });
-  }, []);
-
   const {
     sidebarOpen,
     chats,
@@ -28,12 +15,28 @@ export default function Sidebar() {
     selectChat,
   } = useChatStore();
 
+  useEffect(() => {
+    queueMicrotask(() => {
+      const stored = localStorage.getItem("chatixs-theme") as
+        | "light"
+        | "dark"
+        | null;
+        
+      const prefersDark = window.matchMedia(
+        "(prefers-color-scheme: dark)"
+      ).matches;
+
+      setTheme(stored ?? (prefersDark ? "dark" : "light"));
+    });
+  }, []);
+
   const toggleTheme = () => {
     const next = theme === "light" ? "dark" : "light";
     setTheme(next);
     document.documentElement.setAttribute("data-theme", next);
     localStorage.setItem("chatixs-theme", next);
   };
+
 
   return (
     <>

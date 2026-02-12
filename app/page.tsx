@@ -5,8 +5,16 @@ import ChatArea from "./components/ChatArea";
 import ChatInput from "./components/ChatInput";
 import ChatBackground from "./components/ChatBackground";
 import Header from "./components/Header";
+import { useLayoutEffect } from "react";
+import { useChatStore } from "./store/useChatStore";
 
 export default function Home() {
+  const { initializationChat } = useChatStore();
+
+  useLayoutEffect(() => {
+    initializationChat()
+  }, [])
+
   return (
     <div className="min-h-screen flex bg-base-100">
       <Sidebar />
