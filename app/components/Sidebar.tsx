@@ -6,25 +6,13 @@ import { useChatStore } from "../store/useChatStore";
 export default function Sidebar() {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
-  const {
-    sidebarOpen,
-    chats,
-    currentChatId,
-    closeSidebar,
-    newChat,
-    selectChat,
-  } = useChatStore();
+  const { sidebarOpen, chats, currentChatId, closeSidebar, newChat, selectChat } = useChatStore();
 
   useEffect(() => {
     queueMicrotask(() => {
-      const stored = localStorage.getItem("chatixs-theme") as
-        | "light"
-        | "dark"
-        | null;
-        
-      const prefersDark = window.matchMedia(
-        "(prefers-color-scheme: dark)"
-      ).matches;
+      const stored = localStorage.getItem("chatixs-theme") as "light" | "dark" | null;
+
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
 
       setTheme(stored ?? (prefersDark ? "dark" : "light"));
     });
@@ -36,7 +24,6 @@ export default function Sidebar() {
     document.documentElement.setAttribute("data-theme", next);
     localStorage.setItem("chatixs-theme", next);
   };
-
 
   return (
     <>
@@ -54,60 +41,27 @@ export default function Sidebar() {
         }`}
       >
         <div className="flex items-center justify-between p-4 border-b border-base-300 shrink-0">
-          <button
-            onClick={newChat}
-            className="btn btn-sm btn-primary btn-block gap-2"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M12 4v16m8-8H4"
-              />
+          <button onClick={newChat} className="btn btn-sm btn-primary btn-block gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
             </svg>
             New chat
           </button>
-          <button
-            className="btn btn-ghost btn-sm btn-square lg:hidden"
-            onClick={closeSidebar}
-            aria-label="Close sidebar"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
+          <button className="btn btn-ghost btn-sm btn-square lg:hidden" onClick={closeSidebar} aria-label="Close sidebar">
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
         </div>
 
         <nav className="flex-1 overflow-y-auto p-2">
-          <div className="text-xs font-semibold uppercase tracking-wider text-base-content/60 px-3 py-2">
-            Recent chats
-          </div>
+          <div className="text-xs font-semibold uppercase tracking-wider text-base-content/60 px-3 py-2">Recent chats</div>
           <ul className="space-y-1">
             {chats.map((chat) => (
               <li key={chat.id}>
                 <button
                   className={`btn btn-sm justify-start w-full text-left font-normal gap-2 ${
-                    currentChatId === chat.id
-                      ? "btn-primary"
-                      : "btn-ghost hover:bg-base-300"
+                    currentChatId === chat.id ? "btn-primary" : "btn-ghost hover:bg-base-300"
                   }`}
                   onClick={() => selectChat(chat.id)}
                 >
@@ -133,19 +87,10 @@ export default function Sidebar() {
         </nav>
 
         <div className="p-4 border-t border-base-300 shrink-0 space-y-2">
-          <button
-            className="btn btn-ghost btn-sm w-full justify-start gap-2"
-            onClick={toggleTheme}
-          >
+          <button className="btn btn-ghost btn-sm w-full justify-start gap-2" onClick={toggleTheme}>
             {theme === "light" ? (
               <>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -157,13 +102,7 @@ export default function Sidebar() {
               </>
             ) : (
               <>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-4 w-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"

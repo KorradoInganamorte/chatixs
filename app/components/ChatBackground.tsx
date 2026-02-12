@@ -3,10 +3,7 @@ const BG_PATTERN = `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBo
 export default function ChatBackground() {
   return (
     <>
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{ backgroundImage: BG_PATTERN }}
-      />
+      <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: BG_PATTERN }} />
       <div className="absolute inset-0 bg-gradient-to-b from-primary/5 via-transparent to-transparent pointer-events-none" />
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-base-100 to-transparent pointer-events-none" />
     </>

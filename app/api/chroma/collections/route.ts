@@ -1,5 +1,5 @@
-import { DATABASE, TENANT } from '@/app/shared/consts';
-import { NextResponse, NextRequest } from 'next/server';
+import { DATABASE, TENANT } from "@/app/shared/consts";
+import { NextResponse, NextRequest } from "next/server";
 
 export async function GET() {
   const res = await fetch(`http://localhost:8000/api/v2/tenants/${TENANT}/databases/${DATABASE}/collections`);
@@ -14,14 +14,14 @@ export async function GET() {
 }
 
 export async function POST(request: NextRequest) {
-  const { name } = await request.json()
+  const { name } = await request.json();
 
   const res = await fetch(`http://localhost:8000/api/v2/tenants/${TENANT}/databases/${DATABASE}/collections`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ name })
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ name }),
   });
 
-  const data = await res.json()
-  return NextResponse.json({ data })
+  const data = await res.json();
+  return NextResponse.json({ data });
 }

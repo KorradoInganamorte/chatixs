@@ -12,8 +12,8 @@ export default function Home() {
   const { initializationChat } = useChatStore();
 
   useLayoutEffect(() => {
-    initializationChat()
-  }, [])
+    initializationChat();
+  }, []);
 
   return (
     <div className="min-h-screen flex bg-base-100">

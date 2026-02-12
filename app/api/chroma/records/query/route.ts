@@ -7,17 +7,14 @@ export async function POST(request: NextRequest) {
 
   const queryEmbedding = mockEmbedding(16);
 
-  const res = await fetch(
-    `http://localhost:8000/api/v2/tenants/${TENANT}/databases/${DATABASE}/collections/${id}/query`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        query_embeddings: [queryEmbedding],
-        n_results: 5,
-      }),
-    }
-  );
+  const res = await fetch(`http://localhost:8000/api/v2/tenants/${TENANT}/databases/${DATABASE}/collections/${id}/query`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      query_embeddings: [queryEmbedding],
+      n_results: 5,
+    }),
+  });
 
   if (!res.ok) {
     const text = await res.text();

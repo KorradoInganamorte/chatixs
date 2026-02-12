@@ -80,11 +80,7 @@ export const useChatStore = create<ChatState>((set, get) => ({
     const chatId = currentChatId;
 
     set({
-      chats: chats.map((chat) =>
-        chat.id === currentChatId
-          ? { ...chat, messages: [...chat.messages, userMessage] }
-          : chat
-      ),
+      chats: chats.map((chat) => (chat.id === currentChatId ? { ...chat, messages: [...chat.messages, userMessage] } : chat)),
     });
 
     set({ isLoading: true });
@@ -98,13 +94,9 @@ export const useChatStore = create<ChatState>((set, get) => ({
       });
 
       const queryJson = await queryResponse.json();
-      const documents =
-        queryJson?.data?.documents?.[0] && Array.isArray(queryJson.data.documents[0])
-          ? queryJson.data.documents[0]
-          : [];
+      const documents = queryJson?.data?.documents?.[0] && Array.isArray(queryJson.data.documents[0]) ? queryJson.data.documents[0] : [];
 
-      const context =
-        documents.length > 0 ? documents.join("\n\n---\n\n") : "";
+      const context = documents.length > 0 ? documents.join("\n\n---\n\n") : "";
 
       // 2. Build prompt with retrieved context
       const prompt = context

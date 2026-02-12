@@ -10,23 +10,18 @@ export async function POST(request: NextRequest) {
 
   let documents: string = contents;
   if (Array.isArray(contents)) {
-    documents = contents
-      .map((content) => JSON.stringify(content))
-      .join(",\n");
+    documents = contents.map((content) => JSON.stringify(content)).join(",\n");
   }
 
-  const res = await fetch(
-    `http://localhost:8000/api/v2/tenants/${TENANT}/databases/${DATABASE}/collections/${id}/add`,
-    {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        ids: [id],
-        documents: [documents],
-        embeddings: [mockEmbedding(16)],
-      }),
-    }
-  );
+  const res = await fetch(`http://localhost:8000/api/v2/tenants/${TENANT}/databases/${DATABASE}/collections/${id}/add`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      ids: [id],
+      documents: [documents],
+      embeddings: [mockEmbedding(16)],
+    }),
+  });
 
   if (!res.ok) {
     const text = await res.text();
